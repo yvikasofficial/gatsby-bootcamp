@@ -6,16 +6,12 @@ import blogStyles from "./blog.module.scss"
 const BlogPage = () => {
   const data = useStaticQuery(graphql`
     query {
-      allMarkdownRemark {
+      allContentfulBlogPost(sort: { fields: publishedDate, order: DESC }) {
         edges {
           node {
-            frontmatter {
-              title
-              date
-            }
-            fields {
-              slug
-            }
+            title
+            slug
+            publishedDate(formatString: "MMMM Do, YYYY")
           }
         }
       }
@@ -28,12 +24,12 @@ const BlogPage = () => {
     <Layout>
       <h1>Blog</h1>
       <ol className={blogStyles.posts}>
-        {data.allMarkdownRemark.edges.map((edge, index) => {
+        {data.allContentfulBlogPost.edges.map((edge, index) => {
           return (
             <li key={index} className={blogStyles.post}>
-              <Link to={`/blog/${edge.node.fields.slug}`}>
-                <h1>{edge.node.frontmatter.title}</h1>
-                <p>{edge.node.frontmatter.date}</p>
+              <Link to={`/blog/${edge.node.slug}`}>
+                <h1>{edge.node.title}</h1>
+                <p>{edge.node.publishedDate}</p>
               </Link>
             </li>
           )

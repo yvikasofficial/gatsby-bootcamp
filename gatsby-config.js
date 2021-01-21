@@ -11,6 +11,13 @@ module.exports = {
     author: "The real klaus",
   },
   plugins: [
+    {
+      resolve: "gatsby-source-contentful",
+      options: {
+        spaceId: "96q3wrkzpp0m",
+        accessToken: "_TBDXmnZXXTxbhBg2Fum0_Mp933BfpFEodmQ8aTMEOo",
+      },
+    },
     `gatsby-plugin-sass`,
     {
       resolve: "gatsby-source-filesystem",
